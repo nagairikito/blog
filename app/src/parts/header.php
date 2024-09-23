@@ -1,4 +1,12 @@
 <header>
+    <div class="search_bar_layout">
+        <form action="../../functions/searchResult.php" method="GET" class="search_bar">
+            <input type="search" name="keyword" class="keyword_bar" value="<?php if( isset($_SESSION['keyword']) ){echo $_SESSION['keyword'];} ?>">
+            <!-- <input type="search" name="keyword" class="keyword_bar" value="<?php // if( isset( $keyword ) ){echo $keyword;} ?>"> -->
+            <input type="submit" value="検索">
+        </form>
+    </div>
+
     <ul class="nav">
             <li><a class="a_reset_css" href="home.php">トップページへ</a></li>
         <?php if( isset($_SESSION["login_user"]) ) : ?>

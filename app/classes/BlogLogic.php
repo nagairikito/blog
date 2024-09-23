@@ -2,10 +2,78 @@
 
 require_once '../setting/ini.php';
 require_once '../functions/sessionStart.php';
-require_once '../functions/sessionDelete.php';
+// require_once '../functions/sessionDelete.php';
 require_once '../functions/dbconnect.php';
 
 class BlogLogic {
+    /**
+     * ブログ全件表示
+     */
+    public static function showAllBlogs() {
+        if( isset($_SESSION['all_blogs_err']) ) {
+            unset($_SESSION['all_blogs_err']);
+        }
+        if( isset($_SESSION['allBlogData']) ) {
+            unset($_SESSION['allBlogData']);
+        }
+
+        try {
+            $sql = "SELECT b.id, b.user_id, b.title, b.contents, u.name, b.created_at FROM blogs as b INNER JOIN users as u ON b.user_id = u.id ORDER BY b.created_at DESC";
+
+            $stmt = dbconnect()->query($sql);
+            $allBlogData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+            $_SESSION['allBlogData'] = $allBlogData;
+
+        } catch(\Exception $e) {
+            $_SESSION['all_blogs_err'] = 'エラーが発生しました。';
+        }
+        return;
+
+        //header('Location: ../functions/showAllBlogs.php');
+    }
+
+    
+    /**
+     * 検索機能
+     */
+    public static function search($keyword) {
+        if( isset($_SESSION['searchResult']) ) {
+            unset($_SESSION['searchResult']);
+        }
+        if( isset($_SESSION['search_err']) ) {
+            unset($_SESSION['search_err']);
+        }
+        $result_check = 0;
+
+        if( isset($keyword) ) {
+            try {
+                $sql = "SELECT b.id, b.user_id, b.title, b.contents, u.name, b.created_at FROM blogs as b INNER JOIN users as u ON b.user_id = u.id WHERE b.title LIKE '%$keyword%' OR b.contents LIKE '%$keyword%' ORDER BY b.created_at DESC";
+
+                $stmt = dbconnect()->query($sql);
+                $search_result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                if( count($search_result) == 0 ) {
+                    $result_check = 2;
+                    return $result_check;
+                }
+
+                $_SESSION['searchResult'] = $search_result;
+                $result_check = 1;
+
+            } catch(\Excption $e) {
+                $result_check = 3;
+            }
+        } else {
+            $result_check = 0;
+        }
+
+        return $result_check;
+
+    }
+
+
     /**
      * ブログの投稿
      */

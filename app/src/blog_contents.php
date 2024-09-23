@@ -19,7 +19,7 @@
 
     <?php if( isset($_SESSION["blog_data"]) ) : ?>
         <h1><?php echo $_SESSION["blog_data"]["title"] ?></h1>
-        <p><?php echo $_SESSION["blog_data"]["contents"] ?></p>
+        <p style="white-space: pre-wrap;"><?php echo $_SESSION["blog_data"]["contents"] ?></p>
     <?php endif ; ?>
 
 </body>

@@ -21,7 +21,8 @@
         <?php endif; ?>
 
         <h3>本文</h3>
-        <textarea name="contents" rows="30" cols="150"></textarea><br>
+        <!-- <div contenteditable="true" name="contents" class="contents-box"></div><br> -->
+         <textarea name="contents" rows="30" cols="200"></textarea><br>
         <?php if( isset($_SESSION["postBlog_err"]["contents"]) ) : ?>
             <p class="fail"><?php echo $_SESSION["postBlog_err"]["contents"] ?></p><br>
         <?php endif; ?>

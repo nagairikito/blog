@@ -1,4 +1,5 @@
 <?php require('../functions/sessionStart.php');?>
+<?php require_once('../functions/showAllBlogs.php');?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -31,9 +32,31 @@
             <p class="success"><?php echo $_SESSION["showBlog_err"]; ?></p>
         <?php endif; ?>
 
+        <?php if( isset($_SESSION['all_blogs_err']) ) : ?>
+            <p><?php echo $_SESSION["all_blogs_err"]; ?></p>
+        <?php endif; ?>
+
+
+
     <p >注目トピック（スライド形式）</p>
     <p>ブログ全件取得（更新順）</p>
     <p>注目のユーザー</p>
+
+    <?php if( isset($_SESSION['allBlogData']) ) : ?>
+        <ul>
+            <?php foreach( $_SESSION['allBlogData'] as $key => $blog) : ?>
+                <li class="article">
+                    <a href="../functions/showBlogContents.php?request_blog_id=<?php echo $blog['id'] ?>" class="a_reset_css">
+                        <div><?php echo $blog['title'] ?></div>
+                        <div><?php echo $blog['contents'] ?></div>
+                        <div><?php echo $blog['name'] ?></div>
+                        <div><?php echo $blog['created_at'] ?></div>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
 </main>
 
 <footer>

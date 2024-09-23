@@ -69,7 +69,7 @@
                     <td>
                         <form action="../functions/deleteBlog.php" method="POST">
                             <input type="hidden" name="blog_id" value="<?php echo $blog['id'] ?>">
-                            <input type="submit" value="削除">
+                            <input type="submit" value="削除" onclick="return confirm('削除してもよろしいですか。')">
                         </form>
                     </td>
                 </tr>

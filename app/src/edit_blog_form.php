@@ -23,7 +23,9 @@
         <?php endif; ?>
 
         <h3>本文</h3>
-        <textarea name="contents" rows="30" cols="150"><?php echo $_SESSION['blog_data'][0]['contents'] ?></textarea><br>
+        <!-- <div contenteditable="true" name="contents" class="contents-box"><?php // echo $_SESSION['blog_data'][0]['contents'] ?></div><br> -->
+        <textarea name="contents" rows="30" cols="200"><?php echo $_SESSION['blog_data'][0]['contents'] ?></textarea><br>
+
         <?php if( isset($_SESSION["editBlog_err"]["contents"]) ) : ?>
             <p class="fail"><?php echo $_SESSION["editBlog_err"]["contents"] ?></p><br>
         <?php endif; ?>
